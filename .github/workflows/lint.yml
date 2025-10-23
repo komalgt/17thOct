@@ -1,0 +1,35 @@
+name: Lint
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install flake8
+      run: pip install flake8
+
+    - name: Run flake8
+      run: flake8 aws_cli_tool tests
+
+#name: "Lint" — workflow name as viewed in GitHub Actions tab.
+#on: triggers whenever you push or open a PR against main.
+#jobs.lint: runs the linting job on Ubuntu.
+
+#Checkout code: fetches your repo contents.
+#Set up Python: ensures it uses Python 3.11 (match your project).
+#Install flake8: grabs the linter tool.
+#Run flake8: checks your code in aws_cli_tool/ and tests/.
